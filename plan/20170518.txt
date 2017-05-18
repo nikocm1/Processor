@@ -1,0 +1,21 @@
+Updated on: May 18th, 2017
+
+*********************************************************************************************************************************************
+
+Prioritization: 
+
+High: First thing is to establish a simple working game, with an enemy class, hero class, and bullet class
+
+Medium: Create complicated bullet patterns, add spells,  add levels to the game
+
+Low: Add high quality graphics
+
+*********************************************************************************************************************************************
+
+Core Functionality (Should never change): A hero that can shoot bullets, and at least two levels with enemies that can attack with complicated bullet patterns
+
+Non Essential (Should never change): Spells for use by the hero, nice graphics, final boss?
+
+********************************************************************************************************************************************
+
+We should theoretically be able to delegate all tasks, but we will definitely discuss in a group beforehand
