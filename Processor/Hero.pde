@@ -11,3 +11,11 @@ void shoot(){
   //use image of bullet
   
 }
+
+void isAlive(){
+  
+}
+
+void move(){
+  
+}
