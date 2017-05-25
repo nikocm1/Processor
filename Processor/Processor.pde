@@ -4,8 +4,6 @@ ArrayList<Ammo> ammo= new ArrayList<Ammo>();
 ArrayList<Ammo> enemyAmmo= new ArrayList<Ammo>();
 
 
-
-
 void setup(){
    size(600,600); 
    background(0);
@@ -18,8 +16,22 @@ void setup(){
     background(1100);
     ellipse(bob.xcor,bob.ycor,20,20);
     bob.move();
-    ellipse(enemies.get(0).x,enemies.get(0).y,10,10);
-    enemies.get(0).enemyMove();
+    if(enemies.size() > 0){
+      ellipse(enemies.get(0).x,enemies.get(0).y,10,10);
+      enemies.get(0).enemyMove();
+    }
+    bob.shoot();
+    for(Ammo a:ammo){
+      a.update();
+    }
+    for(int i = 0; i < enemies.size(); i++){
+       for(Ammo a:ammo){
+        if( (abs(enemies.get(i).x - a.position.x)) < 10 && (abs(enemies.get(i).y - a.position.y)) < 10){
+          enemies.remove(i);
+        }        
+        
+       }
+    }
   }
 
 
@@ -41,5 +53,5 @@ void setup(){
   void makeEnemies(){
      //make a queue of enemies in the future, including the boss at the end
      //for now, only include one enemy, just to test
-     enemies.add( new Enemy( 0 , random(600) , 1 , 0, 1 ) );
+     enemies.add( new Enemy( random(width) , 0 , 0 , 1, 1 ) );
   }

@@ -5,7 +5,7 @@ class Ammo {
   int size;
   
   //constructor
-  Ammo(int x, int y , int dx , int dy) {
+  Ammo(float x, float y , int dx , int dy) {
     size = 5;
     position= new PVector(x, y);
     velocity= new PVector (dx, dy);
