@@ -6,9 +6,11 @@ class Enemy {
   float dy; // y velocity
   int HP;
 
-  void Enemy(float newX, float newY, int newHP) {
+  Enemy(float newX, float newY, int xvel, int yvel , int newHP) {
     x = newX;
     y = newY;
+    dx = xvel;
+    dy = yvel;
     HP = newHP;
   }
 
@@ -25,12 +27,4 @@ class Enemy {
     x += dx;
     y += dy;
   }
-}
-
-class Minion extends Enemy {
-    
-}
-
-class Boss extends Enemy {
-  
 }
