@@ -28,6 +28,7 @@ Flesh out each category whenever necessary, appropriate.
 OBSTACLES OVERCOME
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 wow we so BOSS bc...
+fixed diagonal moving, which wasn't working correctly
 
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,30 +61,37 @@ tales of wisdom gained...
 
 2017-05-17
 --------------------------------------------------------------
-Yu Qi :: Write the proporsal
-Nikolas :: Edit the proporsal
+Yu Qi :: Wrote  proposal
+Niko :: Edited proposal
 ==============================================================
 
 2017-05-18
 --------------------------------------------------------------
-Yu Qi :: Created the devlog.txt
-Nikolas :: Created the plan/20170519.txt
+Yu Qi :: Created devlog.txt
+Niko :: Created plan/20170519.txt
 ==============================================================
 
 2017-05-19
 --------------------------------------------------------------
-Yu Qi && Rihui :: Edit the Proporsal
+Yu Qi && Rihui :: Edited Proposal
 ==============================================================
 
 
 2017-05-22
 --------------------------------------------------------------
-Yu Qi && Rihui && Nikolas :: Created UML diagram and flowchart
+Yu Qi && Rihui && Niko :: Created UML diagram and flowchart
 ==============================================================
 
 2017-05-23
 --------------------------------------------------------------
-Yu Qi && Rihui && Nikolas :: Come up list of term 2 topics
+Yu Qi && Rihui && Niko :: Created list of term 2 topics
+Wrote our most basic program, with 4 classes: Driver, Hero, Enemy, Ammo
+Created a basic hero, that can move in four directions
+==============================================================
+
+2017-05-24
+--------------------------------------------------------------
+Niko :: Added diagonal moving, and created a very basic enemy that moves across the screen and can spawn at any specified point
 ==============================================================
 
 
