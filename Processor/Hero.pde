@@ -28,9 +28,6 @@ class Hero{
  
   
   void move(){
-    if (keyPressed) {
-      
-          
       
       
       if (keyz[0]  && xcor > 0) {
@@ -48,4 +45,3 @@ class Hero{
       
     }
   }
-}
