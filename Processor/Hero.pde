@@ -36,16 +36,16 @@ class Hero{
       
       
       if (keyz[0]  && xcor > 0) {
-        xcor -= 2.5;
+        xcor -= 3.5;
       }
-      if (keyz[2]  && (xcor < height)) {
-        xcor += 2.5;
+      if (keyz[2]  && (xcor < width)) {
+        xcor += 3.5;
       } 
       if (keyz[3]  && (ycor > 0)) {
-        ycor -= 2.5;
+        ycor -= 3.5;
       } 
-      if (keyz[1]  && (ycor < width)) {
-        ycor += 2.5;
+      if (keyz[1]  && (ycor < height)) {
+        ycor += 3.5;
       } 
       
     }
