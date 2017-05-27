@@ -5,7 +5,7 @@ class Ammo {
   int size;
   
   //constructor
-  Ammo(float x, float y , int dx , int dy) {
+  Ammo(float x, float y , float dx , float dy) {
     size = 5;
     position= new PVector(x, y);
     velocity= new PVector (dx, dy);
@@ -16,7 +16,7 @@ class Ammo {
   }
   
   void display() {
-    fill(color(0, 225, 0));
+    fill(color((int)random(1000), (int)random(1000), (int)random(1000)));
     ellipse(position.x, position.y, size, size*4);
     
   }

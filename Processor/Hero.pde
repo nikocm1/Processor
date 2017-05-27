@@ -23,6 +23,8 @@ class Hero{
     aDelay++;
     if(aDelay % 7 == 0){
      ammo.add(new Ammo(xcor,ycor,0,-10));
+     ammo.add(new Ammo(xcor,ycor,-2.5,-10));
+     ammo.add(new Ammo(xcor,ycor,2.5,-10));
     }
   }
   

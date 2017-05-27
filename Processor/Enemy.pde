@@ -18,6 +18,7 @@ class Enemy {
 
   void enemyShoot() {
     //use image of bullet
+    aDelay = (int)random(100);
      aDelay++;
     if(aDelay % 50 == 0){
      enemyAmmo.add(new Ammo(x,y,0,3));
@@ -32,7 +33,7 @@ class Enemy {
     // moving from left to right
     x += dx;
     y += dy;
-    dx = (int)(random(10) - 5);
+    //dx = (int)(random(10) - 5);
   }
 
   void leftMove1() {
