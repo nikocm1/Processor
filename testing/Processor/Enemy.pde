@@ -19,14 +19,16 @@ class Enemy {
   void enemyShoot() {
     //use image of bullet
     aDelay = (int)random(100);
-     aDelay++;
-    if(aDelay % 50 == 0){
-     enemyAmmo.add(new Ammo(x,y,0,3));
+    aDelay++;
+    if (aDelay % 50 == 0) {
+      enemyAmmo.add(new Ammo(x, y, 0, 3));
     }
   }
 
   boolean enemyIsAlive() {
-    return HP > 0;
+    if (HP <= 0 || x > width || y > height)
+      return false;
+    return true;
   }
 
   void enemyMove() { 

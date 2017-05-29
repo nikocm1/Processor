@@ -4,6 +4,9 @@ ArrayList<Enemy> enemies= new ArrayList<Enemy>();
 ArrayList<Ammo> ammo= new ArrayList<Ammo>();
 ArrayList<Ammo> enemyAmmo= new ArrayList<Ammo>();
 
+ArrayList<Enemy> leftEnemies= new ArrayList<Enemy>();
+ArrayList<Enemy> rightEnemies= new ArrayList<Enemy>();
+
 boolean pause;
 boolean skillActive;
 float sensitivity;
@@ -36,15 +39,33 @@ void draw() {
     background(1100);
     noStroke(); 
     fill(color((int)random(225), (int)random(225), (int)random(225)));
+    
+    println(leftEnemies.size() + "  " + rightEnemies.size() );
+
+    if (enemies.size() > 9 && leftEnemies.size() == 0 && rightEnemies.size() == 0) {
+      for (int i = 0; i < 5; i++ ) {
+        leftEnemies.add( enemies.remove(i) );
+        //leftEnemies.get(i).leftMove1();
+      }
+      for (int i = 0; i < 5; i++) {
+        rightEnemies.add( enemies.remove(i) );
+        //rightEnemies.get(i).rightMove1();
+      }
+    }
 
     if ( bob != null) {
       //Hero animation
       triangle(bob.xcor, bob.ycor - 15, bob.xcor - 10, bob.ycor + 15, bob.xcor + 10, bob.ycor + 15);
       bob.move();
-
       //enemy animation
-      if (enemies.size() > 0) {
-        for (Enemy e : enemies) {
+      if (leftEnemies.size() > 0 || rightEnemies.size() > 0) {
+        for (Enemy e : leftEnemies) {
+          ellipse(e.x, e.y, 10, 10);
+          if (e.y < height * .3)
+            e.enemyMove();
+          e.enemyShoot();
+        }
+        for (Enemy e : rightEnemies) {
           ellipse(e.x, e.y, 10, 10);
           if (e.y < height * .3)
             e.enemyMove();
@@ -62,12 +83,26 @@ void draw() {
       }//end of bullet animation
 
       //kills enemy
-      for (int i = enemies.size() - 1; i >= 0; i--) {
+      for (int i = leftEnemies.size() - 1; i >= 0; i--) {
         for (int a = ammo.size() - 1; a >= 0; a--) {
-          if (enemies.size() > i) {
-            if ( (abs(enemies.get(i).x - ammo.get(a).position.x) < 10) && (abs(enemies.get(i).y - ammo.get(a).position.y) < 10)) {
-              enemies.remove(i);
+          if (leftEnemies.size() > i) {
+            if ( (abs(leftEnemies.get(i).x - ammo.get(a).position.x) < 10) && (abs(leftEnemies.get(i).y - ammo.get(a).position.y) < 10)) {
+              leftEnemies.get(i).HP -= 1;
               ammo.remove(a);
+              if (! leftEnemies.get(i).enemyIsAlive() )
+                leftEnemies.remove(i);
+            }
+          }
+        }
+      }
+      for (int i = rightEnemies.size() - 1; i >= 0; i--) {
+        for (int a = ammo.size() - 1; a >= 0; a--) {
+          if (rightEnemies.size() > i) {
+            if ( (abs(rightEnemies.get(i).x - ammo.get(a).position.x) < 10) && (abs(rightEnemies.get(i).y - ammo.get(a).position.y) < 10)) {
+              rightEnemies.get(i).HP -= 1;
+              ammo.remove(a);
+              if (! rightEnemies.get(i).enemyIsAlive() )
+                rightEnemies.remove(i);
             }
           }
         }
@@ -100,12 +135,20 @@ void draw() {
               enemyAmmo.remove(i);
             }
           }
-          for (int i = enemies.size()-1; i >= 0; i--) {
-            float changeEX = abs(enemies.get(i).x - currX);
-            float changeEY = abs(enemies.get(i).y - currY);
+          for (int i = leftEnemies.size()-1; i >= 0; i--) {
+            float changeEX = abs(leftEnemies.get(i).x - currX);
+            float changeEY = abs(leftEnemies.get(i).y - currY);
             float Edist = sqrt(changeEX * changeEX + changeEY * changeEY);
             if ( Edist <= skillRad ) {
-              enemies.remove(i);
+              leftEnemies.remove(i);
+            }
+          }
+          for (int i = rightEnemies.size()-1; i >= 0; i--) {
+            float changeEX = abs(rightEnemies.get(i).x - currX);
+            float changeEY = abs(rightEnemies.get(i).y - currY);
+            float Edist = sqrt(changeEX * changeEX + changeEY * changeEY);
+            if ( Edist <= skillRad ) {
+              rightEnemies.remove(i);
             }
           }
         } else {
