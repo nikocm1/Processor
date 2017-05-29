@@ -13,6 +13,7 @@ float currX;
 float currY;
 int skillRad;
 int cooldown;
+int level;
 
 void setup() {
   size(600, 600); 
@@ -20,8 +21,9 @@ void setup() {
   background(0);
   bob = new Hero();
   cooldown = 0;
+  level = 0;
 
-  makeEnemies(20);
+  makeEnemies(0);
   pause = false;
   sensitivity = 4;
   skillActive = false;
@@ -36,6 +38,12 @@ void draw() {
     background(1100);
     noStroke(); 
     fill(color((int)random(225), (int)random(225), (int)random(225)));
+
+    if (enemies.size() == 0){
+       level++;
+       makeEnemies(level);
+    }
+
 
     if ( bob != null) {
       //Hero animation
@@ -154,10 +162,28 @@ void keyReleased() {
   if (key == 'w')  keyz[3] = false;
 }
 
-void makeEnemies(int numE) {
+void makeEnemies(int level) {
   //make a queue of enemies in the future, including the boss at the end
   //for now, only include one enemy, just to test
-  for (int i = 0; i < numE; i++) {
-    enemies.add( new Enemy( random(width), 0, 0, 1, 1 ) );
+  if(level == 0){
+    for (int i = 0; i < 20; i++) {
+      enemies.add( new Enemy( random(width), 0, 0, 1, 1 ) );
+    }
   }
+  if(level == 1){
+    for (int i = 0; i < 25; i++) {
+      enemies.add( new Enemy( random(width), 0, 0, 1, 1 ) );
+    }
+  }
+  if(level == 2){
+    for (int i = 0; i < 30; i++) {
+      enemies.add( new Enemy( random(width), 0, 0, 1, 1 ) );
+    }
+  }
+  /*if(level == 3){
+    for (int i = 0; i < 20; i++) {
+      enemies.add( new Boss() );
+    }
+  }*/
+  
 }
