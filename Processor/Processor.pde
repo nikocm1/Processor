@@ -29,7 +29,7 @@ void setup() {
   skillActive = false;
 
   //num of streams of bullets = (2 * stream) - 1
-  stream = 1;
+  stream = 4;
 }//end setup
 
 void draw() {
@@ -39,9 +39,9 @@ void draw() {
     noStroke(); 
     fill(color((int)random(225), (int)random(225), (int)random(225)));
 
-    if (enemies.size() == 0){
-       level++;
-       makeEnemies(level);
+    if (enemies.size() == 0) {
+      level++;
+      makeEnemies(level);
     }
 
 
@@ -74,8 +74,10 @@ void draw() {
         for (int a = ammo.size() - 1; a >= 0; a--) {
           if (enemies.size() > i) {
             if ( (abs(enemies.get(i).x - ammo.get(a).position.x) < 10) && (abs(enemies.get(i).y - ammo.get(a).position.y) < 10)) {
-              enemies.remove(i);
+              enemies.get(i).HP -=1;
               ammo.remove(a);
+              if (enemies.get(i).HP <= 0)
+                enemies.remove(i);
             }
           }
         }
@@ -93,6 +95,7 @@ void draw() {
       //use skill
       if (cooldown < 100)
         cooldown++;
+      println(cooldown);
       if (skillActive) {
         cooldown = 0;
         if (skillRad < 250) {
@@ -108,12 +111,15 @@ void draw() {
               enemyAmmo.remove(i);
             }
           }
+
           for (int i = enemies.size()-1; i >= 0; i--) {
             float changeEX = abs(enemies.get(i).x - currX);
             float changeEY = abs(enemies.get(i).y - currY);
             float Edist = sqrt(changeEX * changeEX + changeEY * changeEY);
-            if ( Edist <= skillRad ) {
-              enemies.remove(i);
+            if ( Edist <= skillRad && Edist >= skillRad - 5 ) {
+              enemies.get(i).HP -= 10;
+              if (enemies.get(i).HP <= 0)
+                enemies.remove(i);
             }
           }
         } else {
@@ -145,7 +151,7 @@ void keyPressed() {
   if (key == 'm' && sensitivity <= 6) sensitivity += 0.5;
 
   //use skill
-  if (key == ' ' && cooldown == 100) {
+  if (key == ' ' && cooldown >= 0) {
     if (bob != null) {
       skillRad = 0;
       currX = bob.xcor;
@@ -165,25 +171,22 @@ void keyReleased() {
 void makeEnemies(int level) {
   //make a queue of enemies in the future, including the boss at the end
   //for now, only include one enemy, just to test
-  if(level == 0){
+  if (level == 0) {
     for (int i = 0; i < 20; i++) {
-      enemies.add( new Enemy( random(width), 0, 0, 1, 1 ) );
+      enemies.add( new Enemy( random(width), 0, 0, 1, 5 ) );
     }
   }
-  if(level == 1){
+  if (level == 1) {
     for (int i = 0; i < 25; i++) {
-      enemies.add( new Enemy( random(width), 0, 0, 1, 1 ) );
+      enemies.add( new Enemy( random(width), 0, 0, 1, 10 ) );
     }
   }
-  if(level == 2){
+  if (level == 2) {
     for (int i = 0; i < 30; i++) {
-      enemies.add( new Enemy( random(width), 0, 0, 1, 1 ) );
+      enemies.add( new Enemy( random(width), 0, 0, 1, 15 ) );
     }
   }
-  /*if(level == 3){
-    for (int i = 0; i < 20; i++) {
-      enemies.add( new Boss() );
-    }
-  }*/
-  
+  if (level == 3) {
+    enemies.add( new Enemy(width/2, 0, 0, 1, 100 ));
+  }
 }
