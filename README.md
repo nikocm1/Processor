@@ -10,7 +10,6 @@ The amount of bullets actually create a barrage flaming towards the character.
 
 # Description
   ##Ammo class contains the informations of the bullet.
-    ##
   ##Enemy class contains the informations of the enemy.
     ##enemyMove() control the movements of the enemy.
     ##enemyShoot() control the shooting of the enemy.
