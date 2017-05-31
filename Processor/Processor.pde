@@ -1,5 +1,8 @@
+import java.util.ArrayDeque;
+
 Hero bob;
 
+ArrayDeque<Enemy> enemyInQ = new ArrayDeque<Enemy>();
 ArrayList<Enemy> enemies= new ArrayList<Enemy>();
 ArrayList<Ammo> ammo= new ArrayList<Ammo>();
 ArrayList<Ammo> enemyAmmo= new ArrayList<Ammo>();
@@ -15,6 +18,9 @@ int skillRad;
 int cooldown;
 int level;
 
+int a;
+int b;
+int c;
 void setup() {
   size(600, 600); 
   noStroke();
@@ -22,6 +28,10 @@ void setup() {
   bob = new Hero();
   cooldown = 0;
   level = 0;
+
+  a = (int)random(255);
+  b = (int)random(255);
+  c = (int)random(255);
 
   makeEnemies(0);
   pause = false;
@@ -37,11 +47,10 @@ void draw() {
     //update background
     background(1100);
     noStroke(); 
-    fill(color((int)random(225), (int)random(225), (int)random(225)));
-
+    fill(color(a, b, c));
     if (enemies.size() == 0) {
-      level++;
-      makeEnemies(level);
+      //level++;
+      enemies.add(enemyInQ.pop());
     }
 
 
@@ -168,9 +177,10 @@ void keyReleased() {
   if (key == 'w')  keyz[3] = false;
 }
 
-void makeEnemies(int level) {
+void makeEnemies(int numE) {
   //make a queue of enemies in the future, including the boss at the end
   //for now, only include one enemy, just to test
+  /*
   if (level == 0) {
     for (int i = 0; i < 20; i++) {
       enemies.add( new Enemy( random(width), 0, 0, 1, 5 ) );
@@ -189,4 +199,10 @@ void makeEnemies(int level) {
   if (level == 3) {
     enemies.add( new Enemy(width/2, 0, 0, 1, 100 ));
   }
+  */
+  if (enemyInQ.size() == 0)
+    enemyInQ.push( new Enemy(width/2, 0, 0, 1, 100 ) );
+  for(int i = 0; i < numE; i++)
+    enemyInQ.push( new Enemy(random(width), 0, 0, 1, 1 ) );
+   
 }

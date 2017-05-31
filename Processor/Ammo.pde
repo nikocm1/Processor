@@ -16,7 +16,7 @@ class Ammo {
   }
   
   void display() {
-    fill(color((int)random(225), (int)random(225), (int)random(225)));
+    //fill(color((int)random(225), (int)random(225), (int)random(225)));
     ellipse(position.x, position.y, size, size*4);
     
   }
