@@ -12,6 +12,7 @@ boolean skillActive;
 float sensitivity;
 int stream;
 
+
 float currX;
 float currY;
 int skillRad;
@@ -33,7 +34,7 @@ void setup() {
   b = (int)random(255);
   c = (int)random(255);
 
-  makeEnemies(0);
+  makeEnemies(100);
   pause = false;
   sensitivity = 4;
   skillActive = false;
@@ -49,8 +50,10 @@ void draw() {
     noStroke(); 
     fill(color(a, b, c));
     if (enemies.size() == 0) {
-      //level++;
-      enemies.add(enemyInQ.pop());
+      for (int i = 0; i < 10; i++) {
+        if (enemyInQ.size() > 0)
+          enemies.add(enemyInQ.pop());
+      }
     }
 
 
@@ -58,6 +61,8 @@ void draw() {
       //Hero animation
       triangle(bob.xcor, bob.ycor - 15, bob.xcor - 10, bob.ycor + 15, bob.xcor + 10, bob.ycor + 15);
       bob.move();
+      currX = bob.xcor;
+      currY = bob.ycor;
 
       //enemy animation
       if (enemies.size() > 0) {
@@ -163,8 +168,8 @@ void keyPressed() {
   if (key == ' ' && cooldown >= 0) {
     if (bob != null) {
       skillRad = 0;
-      currX = bob.xcor;
-      currY = bob.ycor;
+      //      currX = bob.xcor;
+      //      currY = bob.ycor;
       skillActive = true;
     }
   }
@@ -182,27 +187,27 @@ void makeEnemies(int numE) {
   //for now, only include one enemy, just to test
   /*
   if (level == 0) {
-    for (int i = 0; i < 20; i++) {
-      enemies.add( new Enemy( random(width), 0, 0, 1, 5 ) );
-    }
-  }
-  if (level == 1) {
-    for (int i = 0; i < 25; i++) {
-      enemies.add( new Enemy( random(width), 0, 0, 1, 10 ) );
-    }
-  }
-  if (level == 2) {
-    for (int i = 0; i < 30; i++) {
-      enemies.add( new Enemy( random(width), 0, 0, 1, 15 ) );
-    }
-  }
-  if (level == 3) {
-    enemies.add( new Enemy(width/2, 0, 0, 1, 100 ));
-  }
-  */
+   for (int i = 0; i < 20; i++) {
+   enemies.add( new Enemy( random(width), 0, 0, 1, 5 ) );
+   }
+   }
+   if (level == 1) {
+   for (int i = 0; i < 25; i++) {
+   enemies.add( new Enemy( random(width), 0, 0, 1, 10 ) );
+   }
+   }
+   if (level == 2) {
+   for (int i = 0; i < 30; i++) {
+   enemies.add( new Enemy( random(width), 0, 0, 1, 15 ) );
+   }
+   }
+   if (level == 3) {
+   enemies.add( new Enemy(width/2, 0, 0, 1, 100 ));
+   }
+   */
   if (enemyInQ.size() == 0)
-    enemyInQ.push( new Enemy(width/2, 0, 0, 1, 100 ) );
-  for(int i = 0; i < numE; i++)
+    enemyInQ.push( new Enemy(width/2, 0, 0, 1, 1000 ) );
+
+  for (int i = 0; i < 0; i++)
     enemyInQ.push( new Enemy(random(width), 0, 0, 1, 1 ) );
-   
 }
