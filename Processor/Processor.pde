@@ -40,7 +40,7 @@ void setup() {
   skillActive = false;
 
   //num of streams of bullets = (2 * stream) - 1
-  stream = 4;
+  stream = 1;
 }//end setup
 
 void draw() {
@@ -109,7 +109,7 @@ void draw() {
       //use skill
       if (cooldown < 100)
         cooldown++;
-      println(cooldown);
+      //println(cooldown);
       if (skillActive) {
         cooldown = 0;
         if (skillRad < 250) {

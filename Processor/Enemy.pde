@@ -22,7 +22,7 @@ class Enemy {
     aDelay++;
     if (aDelay % 10 == 0) {
       //enemyAmmo.add(new Ammo(x,y,0,3));
-      threeShot();
+      shootAngle(heroXRadian(), heroYRadian());
     }
   }
 
@@ -30,13 +30,35 @@ class Enemy {
     float d = (dist(currX, currY, x, y));
     float step = 3 / d;
     float d2 = d / cos(30);
-    float step2 = 3 / d2;
-    enemyAmmo.add(new Ammo(x, y, (currX - x) * step, (currY - y) * step));
-    enemyAmmo.add(new Ammo(x, y, d2 * cos(30) * step2, d2 * sin(30) * step2));
-   // enemyAmmo.add(new Ammo(x, y, (currX - x) * step2, (currY - y) * step2));
+    //float step2 = 15 / d2;
+    float a = sin(30) / d;
+    float b = a / tan(75);
+    float x1 = currX + a;
+    float y1 = currY + b;
+
+    //enemyAmmo.add(new Ammo(x, y, (currX - x) * step, (currY - y) * step));
+    enemyAmmo.add(new Ammo(x, y, (x1 - x) * step, (y1 - y) * step));
+    // enemyAmmo.add(new Ammo(x, y, (currX - x) * step2, (currY - y) * step2));
+  }
+
+  void shootAngle(float xR, float yR) {
+    float d = dist(currX, currY, x, y);
+    float x1 = cos(xR);
+    float y1 = sin(yR);
+    enemyAmmo.add(new Ammo(x, y, (x1 - x) * 3, (y1 - y) * 3));
   }
 
   void circle() {
+  }
+  
+  float heroXRadian(){
+   float d = dist(currX, currY, x, y);
+   return acos( (currX - x) / d );
+  }
+  
+  float heroYRadian(){
+   float d = dist(currX, currY, x, y);
+   return asin( (currY - y) / d );
   }
 
   boolean enemyIsAlive() {
