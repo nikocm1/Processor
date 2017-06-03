@@ -20,23 +20,42 @@ class Enemy {
     //use image of bullet
     //(int)random(100);
     aDelay++;
-    if (aDelay % 10 == 0) {
-      //enemyAmmo.add(new Ammo(x,y,0,3));
-      threeShot();
+    if (HP < 100) {
+      if (aDelay % 50 == 0) 
+        enemyAmmo.add(new Ammo(x, y, 0, 3));
+      if (aDelay % 100 == 0)
+        threeShot();
+    }
+    if (HP >= 100) {
+      if (aDelay % 10 == 0)
+        threeShot();
+      if (aDelay % 100 == 0)
+        circle();
     }
   }
 
   void threeShot() {
     float d = (dist(currX, currY, x, y));
     float step = 3 / d;
-    float d2 = d / cos(30);
-    float step2 = 3 / d2;
-    enemyAmmo.add(new Ammo(x, y, (currX - x) * step, (currY - y) * step));
-    enemyAmmo.add(new Ammo(x, y, d2 * cos(30) * step2, d2 * sin(30) * step2));
-   // enemyAmmo.add(new Ammo(x, y, (currX - x) * step2, (currY - y) * step2));
+    //float d2 = d / cos(radians(10));
+    //float step2 = 3 / d2;
+    float diffX = currX - x;
+    float diffY = currY - y;
+    float degree = atan(diffY / diffX);
+    if (currX < x)
+      degree = PI + degree;
+
+    enemyAmmo.add(new Ammo(x, y, diffX * step, diffY * step));
+    enemyAmmo.add(new Ammo(x, y, 3 * cos(degree + radians(20)), 3 * sin(degree + radians(20))));
+    enemyAmmo.add(new Ammo(x, y, 3 * cos(degree - radians(20)), 3 * sin(degree - radians(20))));
   }
 
   void circle() {
+    int deg = 0;
+    while (deg < 360) {
+      enemyAmmo.add(new Ammo(x, y, 3 * cos(radians(deg)), 3 * sin(radians(deg))));
+      deg += 10;
+    }
   }
 
   boolean enemyIsAlive() {

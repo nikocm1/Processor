@@ -15,6 +15,8 @@ int stream;
 
 float currX;
 float currY;
+float skillX;
+float skillY;
 int skillRad;
 int cooldown;
 int level;
@@ -40,7 +42,7 @@ void setup() {
   skillActive = false;
 
   //num of streams of bullets = (2 * stream) - 1
-  stream = 4;
+  stream = 1;
 }//end setup
 
 void draw() {
@@ -63,7 +65,6 @@ void draw() {
       bob.move();
       currX = bob.xcor;
       currY = bob.ycor;
-
       //enemy animation
       if (enemies.size() > 0) {
         for (Enemy e : enemies) {
@@ -115,11 +116,11 @@ void draw() {
         if (skillRad < 250) {
           noFill();
           stroke(225);
-          ellipse(currX, currY, 2 * skillRad, 2 * skillRad);
+          ellipse(skillX, skillY, 2 * skillRad, 2 * skillRad);
           skillRad += 5;
           for (int i = enemyAmmo.size()-1; i >= 0; i--) {
-            float changeEAX = abs(enemyAmmo.get(i).position.x - currX);
-            float changeEAY = abs(enemyAmmo.get(i).position.y - currY);
+            float changeEAX = abs(enemyAmmo.get(i).position.x - skillX);
+            float changeEAY = abs(enemyAmmo.get(i).position.y - skillY);
             float EAdist = sqrt(changeEAX * changeEAX + changeEAY * changeEAY);
             if ( EAdist <= skillRad ) {
               enemyAmmo.remove(i);
@@ -127,8 +128,8 @@ void draw() {
           }
 
           for (int i = enemies.size()-1; i >= 0; i--) {
-            float changeEX = abs(enemies.get(i).x - currX);
-            float changeEY = abs(enemies.get(i).y - currY);
+            float changeEX = abs(enemies.get(i).x - skillX);
+            float changeEY = abs(enemies.get(i).y - skillY);
             float Edist = sqrt(changeEX * changeEX + changeEY * changeEY);
             if ( Edist <= skillRad && Edist >= skillRad - 5 ) {
               enemies.get(i).HP -= 10;
@@ -168,8 +169,8 @@ void keyPressed() {
   if (key == ' ' && cooldown >= 0) {
     if (bob != null) {
       skillRad = 0;
-      //      currX = bob.xcor;
-      //      currY = bob.ycor;
+      skillX = currX;
+      skillY = currY;
       skillActive = true;
     }
   }
@@ -209,5 +210,5 @@ void makeEnemies(int numE) {
     enemyInQ.push( new Enemy(width/2, 0, 0, 1, 1000 ) );
 
   for (int i = 0; i < 0; i++)
-    enemyInQ.push( new Enemy(random(width), 0, 0, 1, 1 ) );
+    enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5 ) );
 }

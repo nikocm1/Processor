@@ -1,4 +1,4 @@
-boolean keyz[] = new boolean [4];
+  boolean keyz[] = new boolean [4];
 
 
 
