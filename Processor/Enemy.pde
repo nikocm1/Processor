@@ -20,6 +20,7 @@ class Enemy {
     //use image of bullet
     //(int)random(100);
     aDelay++;
+<<<<<<< HEAD
     if (HP < 100) {
       if (aDelay % 50 == 0) 
         enemyAmmo.add(new Ammo(x, y, 0, 3));
@@ -31,12 +32,18 @@ class Enemy {
         threeShot();
       if (aDelay % 100 == 0)
         circle();
+=======
+    if (aDelay % 10 == 0) {
+      //enemyAmmo.add(new Ammo(x,y,0,3));
+      shootAngle(heroXRadian(), heroYRadian());
+>>>>>>> 404c81540c54ff389bd370a913bc8b5ef93f8de3
     }
   }
 
   void threeShot() {
     float d = (dist(currX, currY, x, y));
     float step = 3 / d;
+<<<<<<< HEAD
     //float d2 = d / cos(radians(10));
     //float step2 = 3 / d2;
     float diffX = currX - x;
@@ -48,6 +55,25 @@ class Enemy {
     enemyAmmo.add(new Ammo(x, y, diffX * step, diffY * step));
     enemyAmmo.add(new Ammo(x, y, 3 * cos(degree + radians(20)), 3 * sin(degree + radians(20))));
     enemyAmmo.add(new Ammo(x, y, 3 * cos(degree - radians(20)), 3 * sin(degree - radians(20))));
+=======
+    float d2 = d / cos(30);
+    //float step2 = 15 / d2;
+    float a = sin(30) / d;
+    float b = a / tan(75);
+    float x1 = currX + a;
+    float y1 = currY + b;
+
+    //enemyAmmo.add(new Ammo(x, y, (currX - x) * step, (currY - y) * step));
+    enemyAmmo.add(new Ammo(x, y, (x1 - x) * step, (y1 - y) * step));
+    // enemyAmmo.add(new Ammo(x, y, (currX - x) * step2, (currY - y) * step2));
+  }
+
+  void shootAngle(float xR, float yR) {
+    float d = dist(currX, currY, x, y);
+    float x1 = cos(xR);
+    float y1 = sin(yR);
+    enemyAmmo.add(new Ammo(x, y, (x1 - x) * 3, (y1 - y) * 3));
+>>>>>>> 404c81540c54ff389bd370a913bc8b5ef93f8de3
   }
 
   void circle() {
@@ -56,6 +82,16 @@ class Enemy {
       enemyAmmo.add(new Ammo(x, y, 3 * cos(radians(deg)), 3 * sin(radians(deg))));
       deg += 10;
     }
+  }
+  
+  float heroXRadian(){
+   float d = dist(currX, currY, x, y);
+   return acos( (currX - x) / d );
+  }
+  
+  float heroYRadian(){
+   float d = dist(currX, currY, x, y);
+   return asin( (currY - y) / d );
   }
 
   boolean enemyIsAlive() {

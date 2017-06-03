@@ -110,7 +110,7 @@ void draw() {
       //use skill
       if (cooldown < 100)
         cooldown++;
-      println(cooldown);
+      //println(cooldown);
       if (skillActive) {
         cooldown = 0;
         if (skillRad < 250) {
