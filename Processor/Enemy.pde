@@ -6,6 +6,13 @@ class Enemy {
   float dy; // y velocity
   int HP;
   int aDelay;
+  boolean spraying = false;
+  boolean threshold = false;
+  float diffX;
+  float diffY;
+  float deg;
+  float degChange;
+  int sprayTime = 0;
 
   Enemy(float newX, float newY, int xvel, int yvel, int newHP) {
     x = newX;
@@ -20,6 +27,15 @@ class Enemy {
     //use image of bullet
     //(int)random(100);
     aDelay++;
+
+    diffX = 0;
+    diffY = 0;
+    diffX = currX - x;
+    diffY = currY - y;
+    deg = atan(diffY / diffX);
+    if (currX < x)
+      deg = PI + deg;
+
     if (HP < 100) {
       if (aDelay % 50 == 0) 
         enemyAmmo.add(new Ammo(x, y, 0, 3));
@@ -31,6 +47,32 @@ class Enemy {
         threeShot();
       if (aDelay % 100 == 0)
         circle();
+
+      if (!spraying && aDelay % 300 == 0) {
+        spraying = true;
+        threshold = true;
+        degChange = 0;
+      }
+      if (spraying && sprayTime >= 30) {
+        spraying = false;
+        sprayTime = 0;
+      }
+      if (spraying && aDelay % 5 == 0) {
+        sprayTime ++;
+        println(degChange);
+        enemyAmmo.add(new Ammo(x, y, 5 * cos(deg + degChange), 5 * sin(deg + degChange)));
+        
+        if (threshold){
+          degChange += radians(5);
+          println(degChange);}
+        else{
+          degChange -= radians(5);
+          println(degChange);}
+        if (degChange >= radians(30)) 
+          threshold = false;
+        else if (degChange <= radians(-30))
+          threshold = true;
+      }
     }
   }
 
@@ -38,21 +80,16 @@ class Enemy {
   void threeShot() {
     float d = (dist(currX, currY, x, y));
     float step = 3 / d;
-    float diffX = currX - x;
-    float diffY = currY - y;
-    float degree = atan(diffY / diffX);
-    if (currX < x)
-      degree = PI + degree;
 
     enemyAmmo.add(new Ammo(x, y, diffX * step, diffY * step));
-    enemyAmmo.add(new Ammo(x, y, 3 * cos(degree + radians(20)), 3 * sin(degree + radians(20))));
-    enemyAmmo.add(new Ammo(x, y, 3 * cos(degree - radians(20)), 3 * sin(degree - radians(20))));
+    enemyAmmo.add(new Ammo(x, y, 3 * cos(deg + radians(20)), 3 * sin(deg + radians(20))));
+    enemyAmmo.add(new Ammo(x, y, 3 * cos(deg - radians(20)), 3 * sin(deg - radians(20))));
   }
 
   void circle() {
     int deg = 0;
     while (deg < 360) {
-      enemyAmmo.add(new Ammo(x, y, 3 * cos(radians(deg)), 3 * sin(radians(deg))));
+      enemyAmmo.add(new Ammo(x, y, 2 * cos(radians(deg)), 2 * sin(radians(deg))));
       deg += 10;
     }
   }
