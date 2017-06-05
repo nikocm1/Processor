@@ -7,6 +7,8 @@ ArrayList<Enemy> enemies= new ArrayList<Enemy>();
 ArrayList<Ammo> ammo= new ArrayList<Ammo>();
 ArrayList<Ammo> enemyAmmo= new ArrayList<Ammo>();
 
+int mode;
+
 boolean pause;
 boolean skillActive;
 float sensitivity;
@@ -28,6 +30,7 @@ void setup() {
   size(600, 600); 
   noStroke();
   background(0);
+  mode = 0;
   bob = new Hero();
   cooldown = 0;
   level = 0;
@@ -36,7 +39,6 @@ void setup() {
   b = (int)random(255);
   c = (int)random(255);
 
-  makeEnemies(100);
   pause = false;
   sensitivity = 4;
   skillActive = false;
@@ -46,20 +48,31 @@ void setup() {
 }//end setup
 
 void draw() {
+
   if (!pause) {
     //update background
     background(1100);
     noStroke(); 
     fill(color(a, b, c));
     if (enemies.size() == 0) {
-      for (int i = 0; i < 10; i++) {
-        if (enemyInQ.size() > 0)
+      for (int i = 0; i < level * 5; i++) {
+        if (level <= 3 && enemyInQ.size() > 1)
+          enemies.add(enemyInQ.pop());
+        else if (level == 4 && enemyInQ.size() > 2)
           enemies.add(enemyInQ.pop());
       }
+      if (enemyInQ.size() == 1 && enemies.size() == 0)
+        enemies.add(enemyInQ.pop());
     }
 
 
     if ( bob != null) {
+      //populates enemies
+      if (enemyInQ.size() == 0) {
+        level++;
+        makeEnemies();
+      }
+
       //Hero animation
       triangle(bob.xcor, bob.ycor - 15, bob.xcor - 10, bob.ycor + 15, bob.xcor + 10, bob.ycor + 15);
       bob.move();
@@ -183,7 +196,7 @@ void keyReleased() {
   if (key == 'w')  keyz[3] = false;
 }
 
-void makeEnemies(int numE) {
+void makeEnemies() {
   //make a queue of enemies in the future, including the boss at the end
   //for now, only include one enemy, just to test
   /*
@@ -206,9 +219,43 @@ void makeEnemies(int numE) {
    enemies.add( new Enemy(width/2, 0, 0, 1, 100 ));
    }
    */
-  if (enemyInQ.size() == 0)
-    enemyInQ.push( new Enemy(width/2, 0, 0, 1, 1000 ) );
+  if (enemyInQ.size() == 0) {
 
-  for (int i = 0; i < 0; i++)
-    enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5 ) );
+    if (level == 1) {
+      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 100, 100 ) );
+
+      for (int i = 0; i < 10; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 1 ) );
+    }
+
+    if (level == 2) {
+      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 200, 200 ) );
+      for (int i = 0; i < 15; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 2 ) );
+      for (int i = 0; i < 25; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 1 ) );
+    }
+
+    if (level == 3) {
+      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 300, 300 ) );
+      for (int i = 0; i < 15; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 3 ) );
+      for (int i = 0; i < 20; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 2 ) );
+      for (int i = 0; i < 35; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 1 ) );
+    }
+
+    if (level == 4) {
+      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 400, 400 ) );
+      for (int i = 0; i < 2; i++)
+        enemyInQ.push( new Enemy(width * .3, 0, 0, 1, 15, 3 ) );
+      for (int i = 0; i < 15; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 3 ) );
+      for (int i = 0; i < 20; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 2 ) );
+      for (int i = 0; i < 35; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 1 ) );
+    }
+  }
 }

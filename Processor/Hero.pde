@@ -50,12 +50,6 @@ class Hero {
     }
   }//end shoot
 
-
-  void isAlive() {
-  }
-
-
-
   void move() {
 
 
@@ -71,5 +65,5 @@ class Hero {
     if (keyz[1]  && (ycor < height)) {
       ycor += sensitivity;
     }
-  }
-}//end move
+  }//end move
+}//end class
