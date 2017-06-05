@@ -42,7 +42,7 @@ void setup() {
   skillActive = false;
 
   //num of streams of bullets = (2 * stream) - 1
-  stream = 1;
+  stream = 4;
 }//end setup
 
 void draw() {

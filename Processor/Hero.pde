@@ -1,4 +1,4 @@
-  boolean keyz[] = new boolean [4];
+boolean keyz[] = new boolean [4];
 
 
 
@@ -24,24 +24,28 @@ class Hero {
     if (aDelay % 7 == 0) {
 
       //1 stream
-      ammo.add(new Ammo(xcor, ycor, 0, -10));
+      if (stream == 1)
+        ammo.add(new Ammo(xcor, ycor, 0, -10));
+
+      //2 streams
+      if (stream == 2) {
+        ammo.add(new Ammo(xcor + 5, ycor, 0, -10));
+        ammo.add(new Ammo(xcor - 5, ycor, 0, -10));
+      }
 
       //3 streams
-      if (stream >= 2) {
-        ammo.add(new Ammo(xcor, ycor, -2, -10));
-        ammo.add(new Ammo(xcor, ycor, 2, -10));
+      if (stream == 3) {
+        ammo.add(new Ammo(xcor, ycor, 0, -10));
+        ammo.add(new Ammo(xcor - 10, ycor, 0, -10));
+        ammo.add(new Ammo(xcor + 10, ycor, 0, -10));
       }
 
-      //5 streams
-      if (stream >= 3) {
-        ammo.add(new Ammo(xcor, ycor, -4, -10));
-        ammo.add(new Ammo(xcor, ycor, 4, -10));
-      }
-
-      //7 streams
-      if (stream >= 4) {
-        ammo.add(new Ammo(xcor, ycor, -6, -10));
-        ammo.add(new Ammo(xcor, ycor, 6, -10));
+      //4 streams
+      if (stream == 4) {
+        ammo.add(new Ammo(xcor + 5, ycor, 0, -10));
+        ammo.add(new Ammo(xcor - 5, ycor, 0, -10));
+        ammo.add(new Ammo(xcor - 15, ycor, 0, -10));
+        ammo.add(new Ammo(xcor + 15, ycor, 0, -10));
       }
     }
   }//end shoot
