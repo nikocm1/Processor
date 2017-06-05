@@ -2,12 +2,19 @@ import java.util.ArrayDeque;
 
 Hero bob;
 
+PImage bullet;
+PImage hero;
+PImage minion;
+PImage backgroundI;
+
+
 ArrayDeque<Enemy> enemyInQ = new ArrayDeque<Enemy>();
 ArrayList<Enemy> enemies= new ArrayList<Enemy>();
 ArrayList<Ammo> ammo= new ArrayList<Ammo>();
 ArrayList<Ammo> enemyAmmo= new ArrayList<Ammo>();
 
 int mode;
+int gameStarted;
 
 boolean pause;
 boolean skillActive;
@@ -43,121 +50,139 @@ void setup() {
   sensitivity = 4;
   skillActive = false;
 
+  bullet = loadImage("bullet3.png");
+  minion = loadImage("enemy.png");
+  hero = loadImage("spaceship.png");
+  backgroundI = loadImage("background.jpg");
+
   //num of streams of bullets = (2 * stream) - 1
-  stream = 4;
+  stream = 1;
+  backgroundI.resize(600, 600);
 }//end setup
 
 void draw() {
-
-  if (!pause) {
-    //update background
-    background(1100);
-    noStroke(); 
-    fill(color(a, b, c));
-    if (enemies.size() == 0) {
-      for (int i = 0; i < level * 5; i++) {
-        if (level <= 3 && enemyInQ.size() > 1)
-          enemies.add(enemyInQ.pop());
-        else if (level == 4 && enemyInQ.size() > 2)
-          enemies.add(enemyInQ.pop());
-      }
-      if (enemyInQ.size() == 1 && enemies.size() == 0)
-        enemies.add(enemyInQ.pop());
+  if (gameStarted == 0) {
+    text("Start Game", width/2, height /2);
+    text("Click anywhere to start", width/2, height /2 + 50);
+    if (mousePressed == true) {
+      gameStarted = 1;
     }
+  }
 
-
-    if ( bob != null) {
-      //populates enemies
-      if (enemyInQ.size() == 0) {
-        level++;
-        makeEnemies();
+  if (gameStarted == 1) {
+    if (!pause) {
+      //update background
+      background(backgroundI);
+      noStroke(); 
+      fill(color(a, b, c));
+      if (enemies.size() == 0) {
+        for (int i = 0; i < level * 5; i++) {
+          if (level <= 3 && enemyInQ.size() > 1)
+            enemies.add(enemyInQ.pop());
+          else if (level == 4 && enemyInQ.size() > 2)
+            enemies.add(enemyInQ.pop());
+        }
+        if (enemyInQ.size() == 1 && enemies.size() == 0)
+          enemies.add(enemyInQ.pop());
       }
 
-      //Hero animation
-      triangle(bob.xcor, bob.ycor - 15, bob.xcor - 10, bob.ycor + 15, bob.xcor + 10, bob.ycor + 15);
-      bob.move();
-      currX = bob.xcor;
-      currY = bob.ycor;
-      //enemy animation
-      if (enemies.size() > 0) {
-        for (Enemy e : enemies) {
-          ellipse(e.x, e.y, 10, 10);
-          if (e.y < height * .3)
-            e.enemyMove();
-          e.enemyShoot();
+
+      if ( bob != null) {
+        //populates enemies
+        if (enemyInQ.size() == 0) {
+          level++;
+          makeEnemies();
         }
-      }//end enemy animation
 
-      //Bullet animation
-      bob.shoot();
-      for (Ammo a : ammo) {
-        a.update();
-      }
-      for (Ammo eA : enemyAmmo) {
-        eA.update();
-      }//end of bullet animation
+        //Hero animation
+        image(hero, bob.xcor, bob.ycor, 35, 35);
+        bob.move();
+        currX = bob.xcor;
+        currY = bob.ycor;
+        //enemy animation
+        if (enemies.size() > 0) {
+          for (Enemy e : enemies) {
+            image(minion, e.x, e.y, 20, 20);
+            if (e.y < height * .3)
+              e.enemyMove();
+            e.enemyShoot();
+          }
+        }//end enemy animation
 
-      //kills enemy
-      for (int i = enemies.size() - 1; i >= 0; i--) {
-        for (int a = ammo.size() - 1; a >= 0; a--) {
-          if (enemies.size() > i) {
-            if ( (abs(enemies.get(i).x - ammo.get(a).position.x) < 10) && (abs(enemies.get(i).y - ammo.get(a).position.y) < 10)) {
-              enemies.get(i).HP -=1;
-              ammo.remove(a);
-              if (enemies.get(i).HP <= 0)
-                enemies.remove(i);
+        //Bullet animation
+        bob.shoot();
+        for (Ammo a : ammo) {
+          a.update();
+        }
+        for (Ammo eA : enemyAmmo) {
+          eA.update();
+        }//end of bullet animation
+
+        //kills enemy
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+          for (int a = ammo.size() - 1; a >= 0; a--) {
+            if (enemies.size() > i) {
+              if ( (abs(enemies.get(i).x - ammo.get(a).position.x) < 10) && (abs(enemies.get(i).y - ammo.get(a).position.y) < 10)) {
+                enemies.get(i).HP -=1;
+                ammo.remove(a);
+                if (enemies.get(i).HP <= 0)
+                  enemies.remove(i);
+              }
             }
           }
-        }
-      }//end of kill enemy
+        }//end of kill enemy
 
-      //kills hero
-      for ( Ammo eA : enemyAmmo) {
-        if (bob != null) {
-          if ( (abs(eA.position.x - bob.xcor) < 10) && (abs(eA.position.y - bob.ycor) < 10)) {
-            bob = null;
-          }
-        }
-      }//and of kill hero
-
-      //use skill
-      if (cooldown < 100)
-        cooldown++;
-      //println(cooldown);
-      if (skillActive) {
-        cooldown = 0;
-        if (skillRad < 250) {
-          noFill();
-          stroke(225);
-          ellipse(skillX, skillY, 2 * skillRad, 2 * skillRad);
-          skillRad += 5;
-          for (int i = enemyAmmo.size()-1; i >= 0; i--) {
-            float changeEAX = abs(enemyAmmo.get(i).position.x - skillX);
-            float changeEAY = abs(enemyAmmo.get(i).position.y - skillY);
-            float EAdist = sqrt(changeEAX * changeEAX + changeEAY * changeEAY);
-            if ( EAdist <= skillRad ) {
-              enemyAmmo.remove(i);
+        //kills hero
+        for ( Ammo eA : enemyAmmo) {
+          if (bob != null) {
+            if ( (abs(eA.position.x - bob.xcor) < 10) && (abs(eA.position.y - bob.ycor) < 10)) {
+              bob = null;
             }
           }
+        }//and of kill hero
 
-          for (int i = enemies.size()-1; i >= 0; i--) {
-            float changeEX = abs(enemies.get(i).x - skillX);
-            float changeEY = abs(enemies.get(i).y - skillY);
-            float Edist = sqrt(changeEX * changeEX + changeEY * changeEY);
-            if ( Edist <= skillRad && Edist >= skillRad - 5 ) {
-              enemies.get(i).HP -= 10;
-              if (enemies.get(i).HP <= 0)
-                enemies.remove(i);
+        //use skill
+        if (cooldown < 100)
+          cooldown++;
+        //println(cooldown);
+        if (skillActive) {
+          cooldown = 0;
+          if (skillRad < 250) {
+            noFill();
+            stroke(225);
+            ellipse(skillX, skillY, 2 * skillRad, 2 * skillRad);
+            skillRad += 5;
+            for (int i = enemyAmmo.size()-1; i >= 0; i--) {
+              float changeEAX = abs(enemyAmmo.get(i).position.x - skillX);
+              float changeEAY = abs(enemyAmmo.get(i).position.y - skillY);
+              float EAdist = sqrt(changeEAX * changeEAX + changeEAY * changeEAY);
+              if ( EAdist <= skillRad ) {
+                enemyAmmo.remove(i);
+              }
             }
-          }
-        } else {
-          skillActive = false;
-        }
-      }//end use skill
-    }//end of if bob is alive
-  }//end of if pause
 
-  //Game Over
+            for (int i = enemies.size()-1; i >= 0; i--) {
+              float changeEX = abs(enemies.get(i).x - skillX);
+              float changeEY = abs(enemies.get(i).y - skillY);
+              float Edist = sqrt(changeEX * changeEX + changeEY * changeEY);
+              if ( Edist <= skillRad && Edist >= skillRad - 5 ) {
+                enemies.get(i).HP -= 10;
+                if (enemies.get(i).HP <= 0)
+                  enemies.remove(i);
+              }
+            }
+          } else {
+            skillActive = false;
+          }
+        }//end use skill
+      }//end of if bob is alive
+    }//end of if pause
+
+    if (bob == null) {
+      background(0);
+      text("GAME OVER", width/2, height/2);
+    }//Game Over
+  }//end of if gameStarted
 }//end draw
 
 
