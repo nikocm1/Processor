@@ -41,9 +41,9 @@ class Enemy {
       deg = PI + deg;
 
     if (type < 100) {
-      if (type == 1 && aDelay % 50 == 0) 
+      if (type == 1 && aDelay % 100 == 0) 
         enemyAmmo.add(new Ammo(x, y, 0, 3));
-      if (type == 2 && aDelay % 100 == 0)
+      if (type == 2 && aDelay % 200 == 0)
         threeShot(deg);
       if (type == 3 && aDelay % 200 == 0)
         circle(30);

@@ -17,7 +17,7 @@ class Ammo {
   
   void display() {
     //fill(color((int)random(225), (int)random(225), (int)random(225)));
-    image(bullet, position.x, position.y, size * 5, size * 5);
+    image(bullet, position.x - 10, position.y, size * 5, size * 5);
     
   }
   void update() {

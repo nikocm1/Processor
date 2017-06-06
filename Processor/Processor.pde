@@ -14,7 +14,6 @@ ArrayList<Ammo> ammo= new ArrayList<Ammo>();
 ArrayList<Ammo> enemyAmmo= new ArrayList<Ammo>();
 
 int mode;
-int gameStarted;
 
 boolean pause;
 boolean skillActive;
@@ -40,7 +39,7 @@ void setup() {
   mode = 0;
   bob = new Hero();
   cooldown = 0;
-  level = 3;
+  level = 3 ;
 
   a = (int)random(255);
   b = (int)random(255);
@@ -61,15 +60,15 @@ void setup() {
 }//end setup
 
 void draw() {
-  if (gameStarted == 0) {
+  if (mode == 0) {
     text("Start Game", width/2, height /2);
     text("Click anywhere to start", width/2, height /2 + 50);
     if (mousePressed == true) {
-      gameStarted = 1;
+      mode = 1;
     }
   }
 
-  if (gameStarted == 1) {
+  if (mode == 1) {
     if (!pause) {
       //update background
       background(backgroundI);
@@ -82,10 +81,11 @@ void draw() {
               enemies.add(enemyInQ.pop());
             else if (enemyInQ.size() == 1)
               enemies.add(enemyInQ.pop());
-          } else if (level == 4) {
-            if (enemyInQ.size() > 2)
+          }
+          else if (level == 4) {
+            if (enemyInQ.size() > 3)
               enemies.add(enemyInQ.pop());
-            else {
+            else if (enemies.size() == 0){
               while (enemyInQ.size() != 0)
                 enemies.add(enemyInQ.pop());
             }
@@ -107,14 +107,14 @@ void draw() {
         }
 
         //Hero animation
-        image(hero, bob.xcor, bob.ycor, 35, 35);
+        image(hero, bob.xcor - 15, bob.ycor - 15, 35, 35);
         bob.move();
         currX = bob.xcor;
         currY = bob.ycor;
         //enemy animation
         if (enemies.size() > 0) {
           for (Enemy e : enemies) {
-            image(minion, e.x, e.y, 20, 20);
+            image(minion, e.x - 10, e.y - 10, 20, 20);
             if (e.y < height * .3)
               e.enemyMove();
             e.enemyShoot();
@@ -194,7 +194,7 @@ void draw() {
       background(0);
       text("GAME OVER", width/2, height/2);
     }//Game Over
-  }//end of if gameStarted
+  }//end of if mode
 }//end draw
 
 
@@ -259,40 +259,40 @@ void makeEnemies() {
   if (enemyInQ.size() == 0) {
 
     if (level == 1) {
-      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 100, 100 ) );
+      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 50, 100 ) );
 
       for (int i = 0; i < 10; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 1 ) );
+        enemyInQ.push( new Enemy( random(width - 20) + 10, 0, 0, 1, 2, 1 ) );
     }
 
     if (level == 2) {
-      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 200, 200 ) );
+      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 100, 200 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 2 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 2 ) );
       for (int i = 0; i < 25; i++)
         enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 1 ) );
     }
 
     if (level == 3) {
-      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 300, 300 ) );
+      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 150, 300 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 3 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 3 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 2 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 2 ) );
       for (int i = 0; i < 35; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 1 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 3, 1 ) );
     }
 
     if (level == 4) {
-      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 400, 400 ) );
-      enemyInQ.push( new Enemy(width * .333, 0, 0, 1, 50, 100 ) );
-      enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 50, 100 ) );
+      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 200, 400 ) );
+      enemyInQ.push( new Enemy(width * .333, 0, 0, 1, 25, 100 ) );
+      enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 25, 100 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 1, 3 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 3 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 1, 2 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 2 ) );
       for (int i = 0; i < 35; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 1, 1 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 1 ) );
     }
   }
 }
