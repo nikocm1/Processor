@@ -80,7 +80,8 @@ void draw() {
           if (level <= 3 && enemyInQ.size() > 1)
             enemies.add(enemyInQ.pop());
           else if (level == 4 && enemyInQ.size() > 2)
-            enemies.add(enemyInQ.pop());
+            while (enemyInQ.size() != 0)
+              enemies.add(enemyInQ.pop());
         }
         if (enemyInQ.size() == 1 && enemies.size() == 0)
           enemies.add(enemyInQ.pop());
@@ -95,7 +96,7 @@ void draw() {
         }
 
         //Hero animation
-        image(hero, bob.xcor, bob.ycor, 35, 35);
+        image(hero, bob.xcor , bob.ycor, 35, 35);
         bob.move();
         currX = bob.xcor;
         currY = bob.ycor;
@@ -273,8 +274,8 @@ void makeEnemies() {
 
     if (level == 4) {
       enemyInQ.push( new Enemy(width/2, 0, 0, 1, 400, 400 ) );
-      for (int i = 0; i < 2; i++)
-        enemyInQ.push( new Enemy(width * .3, 0, 0, 1, 15, 3 ) );
+      enemyInQ.push( new Enemy(width * .333, 0, 0, 1, 50, 100 ) );
+      enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 50, 100 ) );
       for (int i = 0; i < 15; i++)
         enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 3 ) );
       for (int i = 0; i < 20; i++)
