@@ -42,10 +42,10 @@ class Hero {
 
       //4 streams
       if (stream == 4) {
-        ammo.add(new Ammo(xcor + 5, ycor, 0, -10));
-        ammo.add(new Ammo(xcor - 5, ycor, 0, -10));
-        ammo.add(new Ammo(xcor - 15, ycor, 0, -10));
-        ammo.add(new Ammo(xcor + 15, ycor, 0, -10));
+        ammo.add(new Ammo(xcor + 5, ycor, 0, -15));
+        ammo.add(new Ammo(xcor - 5, ycor, 0, -15));
+        ammo.add(new Ammo(xcor - 15, ycor, 0, -15));
+        ammo.add(new Ammo(xcor + 15, ycor, 0, -15));
       }
     }
   }//end shoot

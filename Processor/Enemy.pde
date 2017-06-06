@@ -8,10 +8,12 @@ class Enemy {
   int aDelay;
   boolean spraying = false;
   boolean threshold = false;
+  boolean spiraling = false;
   float diffX;
   float diffY;
   float deg;
   float degChange;
+  float spiralDeg;
   float currDeg;
   int sprayTime = 0;
   int type;
@@ -55,8 +57,21 @@ class Enemy {
         if (aDelay % 10 == 0)
           threeShot(currDeg);
       }
-      if (type >= 200 && aDelay % 100 == 0)
+      if (type >= 200 && aDelay % 150 == 0)
         circle(10);
+
+      if (type >= 300 && aDelay % 400 == 0 && !spiraling) {
+        spiraling = true;
+        spiralDeg = 0;
+      }
+      if (spiraling && spiralDeg >= 720){
+        spiraling = false;
+        spiralDeg = 0;
+      }
+      if (spiraling && aDelay % 5 == 0) {
+        enemyAmmo.add(new Ammo(x, y, 2.5 * cos(radians(spiralDeg)), 2.5 * sin(radians(spiralDeg))));
+        spiralDeg += 20;
+      }
 
       if (type >= 500 && !spraying && aDelay % 300 == 0) {
         spraying = true;
@@ -69,15 +84,15 @@ class Enemy {
       }
       if (spraying && aDelay % 5 == 0) {
         sprayTime ++;
-        println(degChange);
+        //println(degChange);
         enemyAmmo.add(new Ammo(x, y, 5 * cos(deg + degChange), 5 * sin(deg + degChange)));
 
         if (threshold) {
           degChange += radians(5);
-          println(degChange);
+          //println(degChange);
         } else {
           degChange -= radians(5);
-          println(degChange);
+          //println(degChange);
         }
         if (degChange >= radians(30)) 
           threshold = false;

@@ -33,18 +33,18 @@ int a;
 int b;
 int c;
 void setup() {
-  size(600, 600); 
+  size(600, 700); 
   noStroke();
   background(0);
   mode = 0;
   bob = new Hero();
   cooldown = 0;
-  level = 3 ;
-
+  level = 0 ;
+/*
   a = (int)random(255);
   b = (int)random(255);
   c = (int)random(255);
-
+*/
   pause = false;
   sensitivity = 4;
   skillActive = false;
@@ -56,7 +56,7 @@ void setup() {
 
   //num of streams of bullets = (2 * stream) - 1
   stream = 4;
-  backgroundI.resize(600, 600);
+  backgroundI.resize(600, 700);
 }//end setup
 
 void draw() {
@@ -69,6 +69,9 @@ void draw() {
   }
 
   if (mode == 1) {
+    if (pause) {
+      text("Paused", width/2, height/2);
+    }
     if (!pause) {
       //update background
       background(backgroundI);
@@ -81,11 +84,10 @@ void draw() {
               enemies.add(enemyInQ.pop());
             else if (enemyInQ.size() == 1)
               enemies.add(enemyInQ.pop());
-          }
-          else if (level == 4) {
+          } else if (level == 4 || level == 5) {
             if (enemyInQ.size() > 3)
               enemies.add(enemyInQ.pop());
-            else if (enemies.size() == 0){
+            else if (enemies.size() == 0) {
               while (enemyInQ.size() != 0)
                 enemies.add(enemyInQ.pop());
             }
@@ -213,7 +215,7 @@ void keyPressed() {
 
   //change sensitivity
   if (key == 'n' && sensitivity >= 2) sensitivity -= 0.5;
-  if (key == 'm' && sensitivity <= 6) sensitivity += 0.5;
+  if (key == 'm' && sensitivity <= 7) sensitivity += 0.5;
 
   //use skill
   if (key == ' ' && cooldown >= 0) {
@@ -289,6 +291,18 @@ void makeEnemies() {
       enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 25, 100 ) );
       for (int i = 0; i < 15; i++)
         enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 3 ) );
+      for (int i = 0; i < 20; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 2 ) );
+      for (int i = 0; i < 35; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 1 ) );
+    }
+
+    if (level == 5) {
+      enemyInQ.push( new Enemy(width/2, 0, 0, 1, 250, 500 ) );
+      enemyInQ.push( new Enemy(width * .333, 0, 0, 1, 30, 200 ) );
+      enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 30, 200 ) );
+      for (int i = 0; i < 20; i++)
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 3 ) );
       for (int i = 0; i < 20; i++)
         enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 2 ) );
       for (int i = 0; i < 35; i++)
