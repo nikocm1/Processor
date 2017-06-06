@@ -84,16 +84,78 @@ Yu Qi && Rihui && Niko :: Created UML diagram and flowchart
 
 2017-05-23
 --------------------------------------------------------------
-Yu Qi && Rihui && Niko :: Created list of term 2 topics
-Wrote our most basic program, with 4 classes: Driver, Hero, Enemy, Ammo
-Created a basic hero, that can move in four directions
+Yu Qi && Rihui && Niko :: added functions and instance variables
 ==============================================================
 
 2017-05-24
 --------------------------------------------------------------
-Niko :: Added diagonal moving, and created a very basic enemy that moves across the screen and can spawn at any specified point
+Yu Qi :: updated devlog, edit enemy, added subclass Boss and Minion
+Rihui :: created hero bob in Processor 
+Niko :: modified bullet class and added diagonal moving
 ==============================================================
 
+2017-05-25
+--------------------------------------------------------------
+Yu Qi :: added moving style
+Rihui :: fixed diagonal move
+Niko :: updated develop for past two days
+Together :: work on the dying feature of hero and minions
+==============================================================
 
+2017-05-26
+--------------------------------------------------------------
+Together :: work on the multiple minions feature
+==============================================================
 
+2017-05-27
+--------------------------------------------------------------
+Yu Qi && Rihui && Niko :: adjusted the moving speed of the bullet and
+other features of bullet
+==============================================================
 
+2017-05-38
+--------------------------------------------------------------
+Rihui :: added skills and other cool stuff
+==============================================================
+
+2017-05-29
+--------------------------------------------------------------
+Niko :: added simple level system
+Yu Qi :: added left and right enemies
+==============================================================
+
+2017-05-30
+--------------------------------------------------------------
+Yu Qi :: Created READ.md
+Niko :: added health and boss
+==============================================================
+
+2017-05-31
+--------------------------------------------------------------
+Niko :: added flowchart and umm
+Together :: added stacks to enemies
+==============================================================
+
+2017-06-01
+--------------------------------------------------------------
+Together :: fixed enemy queue and started bullet pattern
+==============================================================
+
+2017-06-02
+--------------------------------------------------------------
+Yu Qi && Rihui :: working on the shooting methods for enemy class
+==============================================================
+
+2017-06-03
+--------------------------------------------------------------
+Yu Qi :: added shootRad()
+Rihui :: added new shooting patterns()
+==============================================================
+
+2017-06-05
+--------------------------------------------------------------
+Yu Qi :: modified hero’s stream and updated develop.txt
+Niko :: added images and game start and end screen; updated
+README.md and added images
+Rihui :: added level4 and fixed skill bug
+==============================================================
