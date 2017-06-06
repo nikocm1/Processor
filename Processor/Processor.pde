@@ -40,7 +40,7 @@ void setup() {
   mode = 0;
   bob = new Hero();
   cooldown = 0;
-  level = 0;
+  level = 3;
 
   a = (int)random(255);
   b = (int)random(255);
@@ -56,7 +56,7 @@ void setup() {
   backgroundI = loadImage("background.jpg");
 
   //num of streams of bullets = (2 * stream) - 1
-  stream = 1;
+  stream = 4;
   backgroundI.resize(600, 600);
 }//end setup
 
@@ -74,29 +74,40 @@ void draw() {
       //update background
       background(backgroundI);
       noStroke(); 
-      fill(color(a, b, c));
+      //fill(color(a, b, c));
       if (enemies.size() == 0) {
         for (int i = 0; i < level * 5; i++) {
-          if (level <= 3 && enemyInQ.size() > 1)
-            enemies.add(enemyInQ.pop());
-          else if (level == 4 && enemyInQ.size() > 2)
-            while (enemyInQ.size() != 0)
+          if (level <= 3) {
+            if (enemyInQ.size() > 1)
               enemies.add(enemyInQ.pop());
+            else if (enemyInQ.size() == 1)
+              enemies.add(enemyInQ.pop());
+          } else if (level == 4) {
+            if (enemyInQ.size() > 2)
+              enemies.add(enemyInQ.pop());
+            else {
+              while (enemyInQ.size() != 0)
+                enemies.add(enemyInQ.pop());
+            }
+            if (enemyInQ.size() == 1 && enemies.size() == 0)
+              enemies.add(enemyInQ.pop());
+          }
         }
-        if (enemyInQ.size() == 1 && enemies.size() == 0)
-          enemies.add(enemyInQ.pop());
       }
 
 
       if ( bob != null) {
         //populates enemies
+        println(level);
+        println(enemies.size());
+        println(enemyInQ.size());
         if (enemyInQ.size() == 0) {
           level++;
           makeEnemies();
         }
 
         //Hero animation
-        image(hero, bob.xcor , bob.ycor, 35, 35);
+        image(hero, bob.xcor, bob.ycor, 35, 35);
         bob.move();
         currX = bob.xcor;
         currY = bob.ycor;
@@ -157,7 +168,7 @@ void draw() {
               float changeEAX = abs(enemyAmmo.get(i).position.x - skillX);
               float changeEAY = abs(enemyAmmo.get(i).position.y - skillY);
               float EAdist = sqrt(changeEAX * changeEAX + changeEAY * changeEAY);
-              if ( EAdist <= skillRad ) {
+              if ( EAdist <= skillRad && EAdist >= skillRad - 10 ) {
                 enemyAmmo.remove(i);
               }
             }
@@ -166,7 +177,7 @@ void draw() {
               float changeEX = abs(enemies.get(i).x - skillX);
               float changeEY = abs(enemies.get(i).y - skillY);
               float Edist = sqrt(changeEX * changeEX + changeEY * changeEY);
-              if ( Edist <= skillRad && Edist >= skillRad - 5 ) {
+              if ( Edist <= skillRad && Edist >= skillRad - 6 ) {
                 enemies.get(i).HP -= 10;
                 if (enemies.get(i).HP <= 0)
                   enemies.remove(i);
@@ -277,11 +288,11 @@ void makeEnemies() {
       enemyInQ.push( new Enemy(width * .333, 0, 0, 1, 50, 100 ) );
       enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 50, 100 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 3 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 1, 3 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 2 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 1, 2 ) );
       for (int i = 0; i < 35; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 1 ) );
+        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 1, 1 ) );
     }
   }
 }

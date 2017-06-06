@@ -40,7 +40,7 @@ class Enemy {
     if (currX < x)
       deg = PI + deg;
 
-    if (HP < 100) {
+    if (type < 100) {
       if (type == 1 && aDelay % 50 == 0) 
         enemyAmmo.add(new Ammo(x, y, 0, 3));
       if (type == 2 && aDelay % 100 == 0)
