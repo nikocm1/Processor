@@ -1,10 +1,10 @@
 # Team: Processor
-APCS2 Final Project Spring 2017 
-Team Member: Yu Qi Wu, Rihui Zheng, Nikolas Cruz-Marsted 
-Touhou Project 
+APCS2 Final Project Spring 2017 <br />
+Team Member: Yu Qi Wu, Rihui Zheng, Nikolas Cruz-Marsted <br />
+Touhou Project <br />
 
 # Introduction
-  This is a re-creation of the game called "Touhou Project". The this an arcade shooting game similar in style to "Space Invaders" but with a much greater amount of bullets. 
+  This is a re-creation of the game called "Touhou Project". The this an arcade shooting game similar in style to "Space Invaders" but with a much greater amount of bullets. <br />
   The large amount of bullets created becomes a "barrage" flaming towards the character. 
 
 # Description
