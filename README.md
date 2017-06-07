@@ -1,11 +1,11 @@
 # Team: Processor
-###APCS2 Final Project Spring 2017
-###Team Member: Yu Qi Wu, Rihui Zheng, Nikolas Cruz-Marsted
-###Touhou Project
+APCS2 Final Project Spring 2017 
+Team Member: Yu Qi Wu, Rihui Zheng, Nikolas Cruz-Marsted 
+Touhou Project 
 
 # Introduction
-  <p>This is a re-creation of the game called "Touhou Project". The this an arcade shooting game similar in style to "Space Invaders" but with a much greater amount of bullets.</p>
-  <p.The large amount of bullets created becomes a "barrage" flaming towards the character.</p>
+  This is a re-creation of the game called "Touhou Project". The this an arcade shooting game similar in style to "Space Invaders" but with a much greater amount of bullets. 
+  The large amount of bullets created becomes a "barrage" flaming towards the character. 
 
 # Description
   ###Processor is the main driver file, and contains all of the calls for moving and shooting enemies, as well as various setup features
