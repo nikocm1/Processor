@@ -1,0 +1,12 @@
+Updated on: May 22th, 2017
+
+*********************************************************************************************************************************************
+
+Prioritization: 
+
+High: First thing is to enable the hero to move properly
+
+Medium: Allows the player and minions kill each other
+
+Low: Complex bullet patterns
+

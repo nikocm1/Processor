@@ -1,0 +1,11 @@
+Updated on: Jun 1st, 2017
+
+*********************************************************************************************************************************************
+
+Prioritization: 
+
+High: Have different bullets patterns 
+
+Medium: Insert images to the game
+
+Low: Have a power and point system

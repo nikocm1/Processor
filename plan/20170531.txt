@@ -1,0 +1,11 @@
+Updated on: May 30th, 2017
+
+*********************************************************************************************************************************************
+
+Prioritization: 
+
+High: Stack of enemies to create separate enemy waves
+
+Medium: Start basic bullet algorithms
+
+Low: Have complex bullet patterns

@@ -4,48 +4,51 @@ Nikolas Cruz-Marsted
 Rihui Zheng
 pd 3
 ---------------------
-<Project>
-
-
-Suggested usage: 
-* Replace all fields, angle brackets included, with specified info.
-  eg, pd <pd#> --> pd 3
-* Delete these instructions once all teammates understand usage.
-
-devlog--
-Use keyboard shortcut to jump to end,
- replicate entry template,
- modify appropriately.
-
-zone of reflection--
-Flesh out each category whenever necessary, appropriate.
- Need not be fully filled in until end of project,
- but best done as you go along.
-
+Touhou Project
 
 /////////// Zone of Reflection \\\\\\\\\\\
 ------------------------------------------
 OBSTACLES OVERCOME
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 wow we so BOSS bc...
-fixed diagonal moving, which wasn't working correctly
+    fixed diagonal moving, which wasn't working correctly,
+    figure out the bullet pattern through math,
+    and inserted images into our game.
 
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 blah blah pesky bug...
-maybe some of these will move into the Obs.Ovrcm section...
+    we don’t have enough bullet patterns because
+it is so hard to calculate,
+    we wish to use the original Touhou Project
+character images, but we don’t know how to
+photoshop,
+    and there is no restart button.
+
 
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 wow! oo!...
+    cool math algorithm used,
+    and inserted images into our game,
 
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 we changed ___ to ___ bc...
+    we changed images from Touhou Project
+characters to spaceship because we cannot
+find transparent images of any Touhou Project
+related.
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 tales of wisdom gained...
+    we learned a bunch of cool stuff dealing
+with multiple wave of enemies and distinguish
+them from the final boss. Instead of having a
+new class, we give each minions a type to
+identify themselves and this also determines
+the bullet patterns they are going to use.
 ||||||||||||||||||||||||||||||||||||||||||
 
 
@@ -158,4 +161,19 @@ Yu Qi :: modified hero’s stream and updated develop.txt
 Niko :: added images and game start and end screen; updated
 README.md and added images
 Rihui :: added level4 and fixed skill bug
+==============================================================
+
+2017-06-06
+--------------------------------------------------------------
+Together :: fixed graphics
+Rihui :: worked on spiral and keep enemies inside the screen
+Yu Qi :: added power and point system
+==============================================================
+
+2017-06-07
+--------------------------------------------------------------
+Yu Qi :: rearranged the position of the minion; removed unused
+code; updated develop.txt, plan, uml and flowchart
+Niko :: set cool down to 150, added power bar, made displays
+presentable
 ==============================================================
