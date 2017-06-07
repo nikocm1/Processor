@@ -4,17 +4,15 @@ boolean keyz[] = new boolean [4];
 
 class Hero {
   int HP;
-  int Mana;
   float xcor;
   float ycor;
   int aDelay;
   int point;
   int power;
 
-  //needs HP, Mana
+  //needs HP, power, point
   Hero() {
     HP = 5;
-    Mana = 0;
     xcor = width/2;
     ycor = height * .9;
     aDelay = 0;

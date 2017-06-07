@@ -129,23 +129,4 @@ class Enemy {
     y += dy;
     //dx = (int)(random(10) - 5);
   }
-
-  void leftMove1() {
-    dx += 5;
-  }
-
-  void leftMove2() {
-    if (y >= height/2.0)
-      dx -= 2;
-  }
-
-  void rightMove1() {
-    dx -= 5;
-  }
-
-  void rightMove2() {
-    if (y >= height/2.0)
-      dx += 2;
-    dy += 2;
-  }
 }
