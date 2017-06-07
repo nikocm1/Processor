@@ -316,19 +316,19 @@ void makeEnemies() {
     if (level == 2) {
       enemyInQ.push( new Enemy(width/2, 0, 0, 1, 100, 200 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 2 ) );
+        enemyInQ.push( new Enemy(random(width -20) + 10, 0, 0, 1, 5, 2 ) );
       for (int i = 0; i < 25; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 1 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 5, 1 ) );
     }
 
     if (level == 3) {
       enemyInQ.push( new Enemy(width/2, 0, 0, 1, 150, 300 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 3 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 10, 3 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 2 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 5, 2 ) );
       for (int i = 0; i < 35; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 3, 1 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 3, 1 ) );
     }
 
     if (level == 4) {
@@ -336,11 +336,11 @@ void makeEnemies() {
       enemyInQ.push( new Enemy(width * .333, 0, 0, 1, 25, 100 ) );
       enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 25, 100 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 3 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 10, 3 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 2 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 10, 2 ) );
       for (int i = 0; i < 35; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 1 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 5, 1 ) );
     }
 
     if (level == 5) {
@@ -348,11 +348,11 @@ void makeEnemies() {
       enemyInQ.push( new Enemy(width * .333, 0, 0, 1, 30, 200 ) );
       enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 30, 200 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 15, 3 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 15, 3 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 10, 2 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 10, 2 ) );
       for (int i = 0; i < 35; i++)
-        enemyInQ.push( new Enemy(random(width), 0, 0, 1, 5, 1 ) );
+        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 5, 1 ) );
     }
   }
 }
