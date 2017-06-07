@@ -112,14 +112,14 @@ void draw() {
       if ( bob != null) {
         finalScore = bob.point;
         textAlign(LEFT);
-        fill(120,250,25);
+        fill(120, 250, 25);
         text("Score: " + bob.point, 10, 20);
         text("Power Meter", 10, 40);
         fill(0);
-        rect(10, 50 , 150 , 20);
-        fill(120,250,25);
-        rect(10, 50 , cooldown , 20);
-        
+        rect(10, 50, 150, 20);
+        fill(120, 250, 25);
+        rect(10, 50, cooldown, 20);
+
 
         //populates enemies
         //println(level);
@@ -132,7 +132,8 @@ void draw() {
           level++;
           makeEnemies();
         }
-        if (bob.power > stream * 10 && stream < 4) {
+        if (bob.power > stream * 50 && stream < 4) {
+          bob.power = 0;
           stream++;
         }
 
@@ -196,8 +197,13 @@ void draw() {
                 bob.point++;
                 if (enemies.get(i).HP <= 0) {
                   for (int n = 0; n < enemies.get(i).initHP; n++) {
-                    points.add( new Point( random(50) + enemies.get(i).x, random(10) + enemies.get(i).y, 2 ) );
-                    powers.add( new Power( random(50) + enemies.get(i).x, random(10) + enemies.get(i).y, 2 ) );
+                    if (enemies.get(i).x > width / 2) {
+                      points.add( new Point( random(50) + enemies.get(i).x - 20, random(10) + enemies.get(i).y, 2 ) );
+                      powers.add( new Power( random(50) + enemies.get(i).x - 20, random(10) + enemies.get(i).y, 2 ) );
+                    } else {
+                      points.add( new Point( random(50) + enemies.get(i).x, random(10) + enemies.get(i).y, 2 ) );
+                      powers.add( new Power( random(50) + enemies.get(i).x, random(10) + enemies.get(i).y, 2 ) );
+                    }
                   }
                   enemies.remove(i);
                 }
@@ -256,7 +262,7 @@ void draw() {
       background(0);
       textAlign(CENTER);
       text("GAME OVER", width/2, height/2);
-      text("Final Score: " + finalScore , width/2 , height/2 + 50);
+      text("Final Score: " + finalScore, width/2, height/2 + 50);
     }//Game Over
   }//end of if mode
 }//end draw
@@ -298,53 +304,31 @@ void keyReleased() {
 }
 
 void makeEnemies() {
-  //make a queue of enemies in the future, including the boss at the end
-  //for now, only include one enemy, just to test
-  /*
-  if (level == 0) {
-   for (int i = 0; i < 20; i++) {
-   enemies.add( new Enemy( random(width), 0, 0, 1, 5 ) );
-   }
-   }
-   if (level == 1) {
-   for (int i = 0; i < 25; i++) {
-   enemies.add( new Enemy( random(width), 0, 0, 1, 10 ) );
-   }
-   }
-   if (level == 2) {
-   for (int i = 0; i < 30; i++) {
-   enemies.add( new Enemy( random(width), 0, 0, 1, 15 ) );
-   }
-   }
-   if (level == 3) {
-   enemies.add( new Enemy(width/2, 0, 0, 1, 100 ));
-   }
-   */
   if (enemyInQ.size() == 0) {
 
     if (level == 1) {
       enemyInQ.push( new Enemy(width/2, 0, 0, 1, 50, 100 ) );
 
       for (int i = 0; i < 10; i++)
-        enemyInQ.push( new Enemy( random(width - 20) + 10, 0, 0, 1, 2, 1 ) );
+        enemyInQ.push( new Enemy( width / 10 * i + 10, 0, 0, 1, 2, 1 ) );
     }
 
     if (level == 2) {
       enemyInQ.push( new Enemy(width/2, 0, 0, 1, 100, 200 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width -20) + 10, 0, 0, 1, 5, 2 ) );
+        enemyInQ.push( new Enemy(width / 15 * i + 10, 0, 0, 1, 5, 2 ) );
       for (int i = 0; i < 25; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 5, 1 ) );
+        enemyInQ.push( new Enemy(width / 25 * i + 10, 0, 0, 1, 5, 1 ) );
     }
 
     if (level == 3) {
       enemyInQ.push( new Enemy(width/2, 0, 0, 1, 150, 300 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 10, 3 ) );
+        enemyInQ.push( new Enemy(width / 15 * i + 10, 0, 0, 1, 10, 3 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 5, 2 ) );
+        enemyInQ.push( new Enemy(width / 20 * i + 10, 0, 0, 1, 5, 2 ) );
       for (int i = 0; i < 35; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 3, 1 ) );
+        enemyInQ.push( new Enemy(width / 35 * i + 10, 0, 0, 1, 3, 1 ) );
     }
 
     if (level == 4) {
@@ -352,11 +336,11 @@ void makeEnemies() {
       enemyInQ.push( new Enemy(width * .333, 0, 0, 1, 25, 100 ) );
       enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 25, 100 ) );
       for (int i = 0; i < 15; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 10, 3 ) );
+        enemyInQ.push( new Enemy(width / 15 * i + 10, 0, 0, 1, 10, 3 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 10, 2 ) );
+        enemyInQ.push( new Enemy(width / 20 * i + 10, 0, 0, 1, 10, 2 ) );
       for (int i = 0; i < 35; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 5, 1 ) );
+        enemyInQ.push( new Enemy(width / 35 * i + 10, 0, 0, 1, 5, 1 ) );
     }
 
     if (level == 5) {
@@ -364,11 +348,11 @@ void makeEnemies() {
       enemyInQ.push( new Enemy(width * .333, 0, 0, 1, 30, 200 ) );
       enemyInQ.push( new Enemy(width * .666, 0, 0, 1, 30, 200 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 15, 3 ) );
+        enemyInQ.push( new Enemy(width / 20 * i + 10, 0, 0, 1, 15, 3 ) );
       for (int i = 0; i < 20; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 10, 2 ) );
+        enemyInQ.push( new Enemy(width / 20 * i + 10, 0, 0, 1, 10, 2 ) );
       for (int i = 0; i < 35; i++)
-        enemyInQ.push( new Enemy(random(width - 20) + 10, 0, 0, 1, 5, 1 ) );
+        enemyInQ.push( new Enemy(width / 35 * i + 10, 0, 0, 1, 5, 1 ) );
     }
   }
 }
