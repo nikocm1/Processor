@@ -31,6 +31,7 @@ float skillY;
 int skillRad;
 int cooldown;
 int level;
+int finalScore;
 
 int a;
 int b;
@@ -67,7 +68,11 @@ void setup() {
 
 void draw() {
   if (mode == 0) {
-    text("Start Game", width/2, height /2);
+    textAlign(CENTER);
+    textSize(18);
+    fill(255);
+    text("The Touhou Project", width/2, height /2 - 100);
+    text("By Nikolas Cruz-Marsted, Yuqi Wu and Rihui Zheng", width/2, height /2 - 75);
     text("Click anywhere to start", width/2, height /2 + 50);
     if (mousePressed == true) {
       mode = 1;
@@ -105,8 +110,17 @@ void draw() {
 
 
       if ( bob != null) {
-        text("Point: " + bob.point, 10, 20);
+        finalScore = bob.point;
+        textAlign(LEFT);
+        fill(120,250,25);
+        text("Score: " + bob.point, 10, 20);
+        text("Power Meter", 10, 40);
+        fill(0);
+        rect(10, 50 , 150 , 20);
+        fill(120,250,25);
+        rect(10, 50 , cooldown , 20);
         
+
         //populates enemies
         //println(level);
         //println(enemies.size());
@@ -159,90 +173,92 @@ void draw() {
           }
         }//end of point animation
 
-      //Power animation
-      for (int i = powers.size() - 1; i >= 0; i--) {
-        if (powers.size() > i) {
-          image(power, powers.get(i).x - 10, powers.get(i).y - 10, 20, 20);
-          powers.get(i).powerMove();
-          if ( (abs(powers.get(i).x - bob.xcor) < 20) && (abs(powers.get(i).y - bob.ycor) < 20)) {
-            bob.power++;
-            powers.remove(i);
-          } else if ( powers.get(i).y > height )
-            powers.remove(i);
-        }
-      }//end of power animation
+        //Power animation
+        for (int i = powers.size() - 1; i >= 0; i--) {
+          if (powers.size() > i) {
+            image(power, powers.get(i).x - 10, powers.get(i).y - 10, 20, 20);
+            powers.get(i).powerMove();
+            if ( (abs(powers.get(i).x - bob.xcor) < 20) && (abs(powers.get(i).y - bob.ycor) < 20)) {
+              bob.power++;
+              powers.remove(i);
+            } else if ( powers.get(i).y > height )
+              powers.remove(i);
+          }
+        }//end of power animation
 
-      //kills enemy
-      for (int i = enemies.size() - 1; i >= 0; i--) {
-        for (int a = ammo.size() - 1; a >= 0; a--) {
-          if (enemies.size() > i) {
-            if ( (abs(enemies.get(i).x - ammo.get(a).position.x) < 10) && (abs(enemies.get(i).y - ammo.get(a).position.y) < 10)) {
-              enemies.get(i).HP -=1;
-              ammo.remove(a);
-              bob.point++;
-              if (enemies.get(i).HP <= 0) {
-                for (int n = 0; n < enemies.get(i).initHP; n++) {
-                  points.add( new Point( random(50) + enemies.get(i).x, random(10) + enemies.get(i).y, 2 ) );
-                  powers.add( new Power( random(50) + enemies.get(i).x, random(10) + enemies.get(i).y, 2 ) );
+        //kills enemy
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+          for (int a = ammo.size() - 1; a >= 0; a--) {
+            if (enemies.size() > i) {
+              if ( (abs(enemies.get(i).x - ammo.get(a).position.x) < 10) && (abs(enemies.get(i).y - ammo.get(a).position.y) < 10)) {
+                enemies.get(i).HP -=1;
+                ammo.remove(a);
+                bob.point++;
+                if (enemies.get(i).HP <= 0) {
+                  for (int n = 0; n < enemies.get(i).initHP; n++) {
+                    points.add( new Point( random(50) + enemies.get(i).x, random(10) + enemies.get(i).y, 2 ) );
+                    powers.add( new Power( random(50) + enemies.get(i).x, random(10) + enemies.get(i).y, 2 ) );
+                  }
+                  enemies.remove(i);
                 }
-                enemies.remove(i);
               }
             }
           }
-        }
-      }//end of kill enemy
+        }//end of kill enemy
 
-      //kills hero
-      for ( Ammo eA : enemyAmmo) {
-        if (bob != null) {
-          if ( (abs(eA.position.x - bob.xcor) < 10) && (abs(eA.position.y - bob.ycor) < 10)) {
-            bob = null;
-          }
-        }
-      }//and of kill hero
-
-      //use skill
-      if (cooldown < 100)
-        cooldown++;
-      //println(cooldown);
-      if (skillActive) {
-        cooldown = 0;
-        if (skillRad < 250) {
-          noFill();
-          stroke(225);
-          ellipse(skillX, skillY, 2 * skillRad, 2 * skillRad);
-          skillRad += 5;
-          for (int i = enemyAmmo.size()-1; i >= 0; i--) {
-            float changeEAX = abs(enemyAmmo.get(i).position.x - skillX);
-            float changeEAY = abs(enemyAmmo.get(i).position.y - skillY);
-            float EAdist = sqrt(changeEAX * changeEAX + changeEAY * changeEAY);
-            if ( EAdist <= skillRad && EAdist >= skillRad - 10 ) {
-              enemyAmmo.remove(i);
+        //kills hero
+        for ( Ammo eA : enemyAmmo) {
+          if (bob != null) {
+            if ( (abs(eA.position.x - bob.xcor) < 10) && (abs(eA.position.y - bob.ycor) < 10)) {
+              bob = null;
             }
           }
+        }//and of kill hero
 
-          for (int i = enemies.size()-1; i >= 0; i--) {
-            float changeEX = abs(enemies.get(i).x - skillX);
-            float changeEY = abs(enemies.get(i).y - skillY);
-            float Edist = sqrt(changeEX * changeEX + changeEY * changeEY);
-            if ( Edist <= skillRad && Edist >= skillRad - 6 ) {
-              enemies.get(i).HP -= 10;
-              if (enemies.get(i).HP <= 0)
-                enemies.remove(i);
+        //use skill
+        if (cooldown < 150 && !skillActive)
+          cooldown++;
+        //println(cooldown);
+        if (skillActive) {
+          cooldown = 0;
+          if (skillRad < 250) {
+            noFill();
+            stroke(225);
+            ellipse(skillX, skillY, 2 * skillRad, 2 * skillRad);
+            skillRad += 5;
+            for (int i = enemyAmmo.size()-1; i >= 0; i--) {
+              float changeEAX = abs(enemyAmmo.get(i).position.x - skillX);
+              float changeEAY = abs(enemyAmmo.get(i).position.y - skillY);
+              float EAdist = sqrt(changeEAX * changeEAX + changeEAY * changeEAY);
+              if ( EAdist <= skillRad && EAdist >= skillRad - 10 ) {
+                enemyAmmo.remove(i);
+              }
             }
-          }
-        } else {
-          skillActive = false;
-        }
-      }//end use skill
-    }//end of if bob is alive
-  }//end of if pause
 
-  if (bob == null) {
-    background(0);
-    text("GAME OVER", width/2, height/2);
-  }//Game Over
-}//end of if mode
+            for (int i = enemies.size()-1; i >= 0; i--) {
+              float changeEX = abs(enemies.get(i).x - skillX);
+              float changeEY = abs(enemies.get(i).y - skillY);
+              float Edist = sqrt(changeEX * changeEX + changeEY * changeEY);
+              if ( Edist <= skillRad && Edist >= skillRad - 6 ) {
+                enemies.get(i).HP -= 10;
+                if (enemies.get(i).HP <= 0)
+                  enemies.remove(i);
+              }
+            }
+          } else {
+            skillActive = false;
+          }
+        }//end use skill
+      }//end of if bob is alive
+    }//end of if pause
+
+    if (bob == null) {
+      background(0);
+      textAlign(CENTER);
+      text("GAME OVER", width/2, height/2);
+      text("Final Score: " + finalScore , width/2 , height/2 + 50);
+    }//Game Over
+  }//end of if mode
 }//end draw
 
 
@@ -264,7 +280,7 @@ void keyPressed() {
   if (key == 'm' && sensitivity <= 7) sensitivity += 0.5;
 
   //use skill
-  if (key == ' ' && cooldown >= 0) {
+  if (key == ' ' && cooldown >= 150) {
     if (bob != null) {
       skillRad = 0;
       skillX = currX;
