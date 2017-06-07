@@ -5,6 +5,7 @@ class Enemy {
   float dx; // x velocity
   float dy; // y velocity
   int HP;
+  int initHP;
   int aDelay;
   boolean spraying = false;
   boolean threshold = false;
@@ -24,6 +25,7 @@ class Enemy {
     dx = xvel;
     dy = yvel;
     HP = newHP;
+    initHP = newHP;
     aDelay = 0;
     type = etype;
     currDeg = radians(90);

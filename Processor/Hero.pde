@@ -8,6 +8,8 @@ class Hero {
   float xcor;
   float ycor;
   int aDelay;
+  int point;
+  int power;
 
   //needs HP, Mana
   Hero() {
